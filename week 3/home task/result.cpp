@@ -1,0 +1,41 @@
+#include<iostream>
+using namespace std;
+main(){
+int a,b,c,d,e,f,g,h,i,j,k,l,m,n,o;
+int group1,group2,group3,result;
+cout<<"Enter the number 1 : ";
+cin>>a;
+cout<<"Enter the number 2 : ";
+cin>>b;
+cout<<"Enter the number 3 : ";
+cin>>c;
+cout<<"Enter the number 4 : ";
+cin>>d;
+cout<<"Enter the number 5 : ";
+cin>>e;
+cout<<"Enter the number 6 : ";
+cin>>f;
+cout<<"Enter the number 7 : ";
+cin>>g;
+cout<<"Enter the number 8 : ";
+cin>>h;
+cout<<"Enter the number 9 : ";
+cin>>i;
+cout<<"Enter the number 10 : ";
+cin>>j;
+cout<<"Enter the number 11 : ";
+cin>>k;
+cout<<"Enter the number 12 : ";
+cin>>l;
+cout<<"Enter the number 13 : ";
+cin>>m;
+cout<<"Enter the number 14 : ";
+cin>>n;
+cout<<"Enter the number 15 : ";
+cin>>o;
+group1=(a+b+c+d+e);
+group2=(f*g*h*i*j);
+group3=(k-l-m-n-o);
+result=(group1+group2)-(group3);
+cout<<"The result is : "<<result ;
+}
