@@ -113,43 +113,43 @@ main()
         cout << "consonant";
     }
 
-    if (lowercase == 0)
+    if (lowercase == '0')
     {
         cout << "it is a number";
     }
-    if (lowercase == 1)
+    if (lowercase == '1')
     {
         cout << "it is a number";
     }
-    if (lowercase == 2)
+    if (lowercase == '2')
     {
         cout << "it is a number";
     }
-    if (lowercase == 3)
+    if (lowercase == '3')
     {
         cout << "it is a number";
     }
-    if (lowercase == 4)
+    if (lowercase == '4')
     {
         cout << "it is a number";
     }
-    if (lowercase == 5)
+    if (lowercase == '5')
     {
         cout << "it is a number";
     }
-    if (lowercase == 6)
+    if (lowercase == '6')
     {
         cout << "it is a number";
     }
-    if (lowercase == 7)
+    if (lowercase == '7')
     {
         cout << "it is a number";
     }
-    if (lowercase == 8)
+    if (lowercase == '8')
     {
         cout << "it is a number";
     }
-    if (lowercase == 9)
+    if (lowercase == '9')
     {
         cout << "it is a number";
     }
