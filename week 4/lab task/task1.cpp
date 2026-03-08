@@ -7,10 +7,10 @@ main()
     cin >> num;
     if (num % 2 == 0)
     {
-        cout << "this is even : ";
+        cout << "this is even  ";
     }
     else
     {
-        cout << "this is even";
+        cout << "this is odd";
     }
 }

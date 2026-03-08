@@ -11,7 +11,7 @@ main()
     {
         cout << "yes";
     }
-    if (capital != small)
+    else
     {
         cout << "No";
     }
