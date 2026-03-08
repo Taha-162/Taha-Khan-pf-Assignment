@@ -5,7 +5,7 @@ main()
     int a, num;
     cout << "Enter the Number:";
     cin >> num;
-    if (a == 2)
+    if (num % 2 == 0)
     {
         cout << "this is even : ";
     }
