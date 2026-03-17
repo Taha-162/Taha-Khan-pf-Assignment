@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+main()
+{
+    int rows, i, j;
+    cout << "Enter  The Rows:" << endl;
+    cin >> rows;
+    for (i = 1; i <= rows; i++)
+    {
+        for (j = 1; j <= i; j++)
+
+        {
+
+            cout << "*";
+        }
+        cout << "\n";
+    }
+}
