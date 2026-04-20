@@ -16,4 +16,4 @@ main()
         cout << string[i];
     }
     return 0;
-}
+} 
