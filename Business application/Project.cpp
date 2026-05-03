@@ -63,7 +63,7 @@ main()
                             cout << "No\tProductname\tproductprice\tproductstock" << endl;
                             for (int i = 0; i < currentproduct; i++)
                             {
-                                if (namesarray[i] != "")
+                                if (namesarray[i] != " ")
                                 {
                                     cout << i << "\t" << namesarray[i] << "\t" << pricearray[i] << "\t" << stockarray[i] << endl;
                                 }
@@ -134,9 +134,9 @@ main()
                             }
                             if (found == true)
                             {
-                                namesarray[i] = "";
-                                pricearray[i] = 0;
-                                stockarray[i] = 0;
+                                namesarray[foundindex] = " ";
+                                pricearray[foundindex] = 0;
+                                stockarray[foundindex] = 0;
                                 cout << "Record Of Product" << name << "is Deleted" << endl;
                             }
                             else
