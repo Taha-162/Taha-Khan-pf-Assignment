@@ -10,6 +10,7 @@ main()
     string namesarray[totalproduct] = {"medoralipstick", "pondsfacewash", "coverfoundation", "xqmbase", "hudabeautyprimer"};
     int pricearray[totalproduct] = {200, 300, 650, 300, 250};
     int stockarray[totalproduct] = {19, 12, 9, 10, 5};
+    int discountarray[totalproduct] = {0, 0, 0, 5, 10};
 
     // Main Header of CSMS
     while (true)
@@ -40,7 +41,7 @@ main()
                 string password;
                 cout << "Enter The Password:";
                 cin >> password;
-                if (username == "admin" && password == "1234")
+                if (username == "taha" && password == "7271")
                 {
                     cout << "Login Succesfully" << endl;
                     cout << "Press Any Key to Continue" << endl;
@@ -52,7 +53,11 @@ main()
                         cout << "2.Add Product" << endl;
                         cout << "3.Update Product" << endl;
                         cout << "4.Delete Product" << endl;
-                        cout << "5.logout" << endl;
+                        cout << "5.Search Product" << endl;
+                        cout << "6.view low stock item" << endl;
+                        cout << "7.Apply discount on product" << endl;
+                        cout << "8.view total inventory value" << endl;
+                        cout << "9.Logout" << endl;
                         cout << "Enter The Choice:";
                         int adminchoice;
                         cin >> adminchoice;
@@ -60,12 +65,12 @@ main()
                         if (adminchoice == 1)
                         {
 
-                            cout << "No\tProductname\tproductprice\tproductstock" << endl;
+                            cout << "No\tProductname\tproductprice\tproductstock\tdiscountaproduct" << endl;
                             for (int i = 0; i < currentproduct; i++)
                             {
                                 if (namesarray[i] != " ")
                                 {
-                                    cout << i << "\t" << namesarray[i] << "\t" << pricearray[i] << "\t" << stockarray[i] << endl;
+                                    cout << i + 1 << "\t" << namesarray[i] << "\t" << pricearray[i] << "\t" << stockarray[i] << "\t" << discountarray[i] << "%" << endl;
                                 }
                             }
                             getch();
@@ -81,6 +86,7 @@ main()
                             cin >> pricearray[currentproduct];
                             cout << "How many stocks U have of the Product You added:" << endl;
                             cin >> stockarray[currentproduct];
+                            discountarray[currentproduct] = 0; // no discount currently on new product :(
                             currentproduct++;
                             getch();
                             cout << "Press Any Key To Continue :)";
@@ -137,6 +143,7 @@ main()
                                 namesarray[foundindex] = " ";
                                 pricearray[foundindex] = 0;
                                 stockarray[foundindex] = 0;
+                                discountarray[foundindex] = 0;
                                 cout << "Record Of Product" << name << "is Deleted" << endl;
                             }
                             else
@@ -149,6 +156,93 @@ main()
                             getch();
                         }
                         else if (adminchoice == 5)
+                        //..search product..//
+                        {
+                            string name;
+                            cout << "Enter the Product name u want to search :):" << endl;
+                            cin >> name;
+                            bool found = false;
+                            for (int i = 0; i < currentproduct; i++)
+                            {
+                                if (namesarray[i] == name)
+                                {
+                                    cout << "Product found :)" << endl;
+                                    cout << "Name:" << namesarray[i] << "\t" << "Price:" << pricearray[i] << "\t" << "Stock:" << stockarray[i] << "\t" << "Discount:" << discountarray[i] << "%" << endl;
+                                }
+                            }
+                            getch();
+                            cout << "press any key to Continue";
+                            getch();
+                        }
+                        else if (adminchoice == 6)
+                        //..view low stock item..//
+                        {
+                            cout << "View low stock item in store less then 7 product:" << endl;
+                            bool found = false;
+                            for (int i = 0; i < currentproduct; i++)
+                            {
+                                if (stockarray[i] < 7)
+                                {
+                                    cout << namesarray[i] << " stock: " << stockarray[i] << endl;
+                                    found = true;
+                                }
+                            }
+                            if (!found)
+                            {
+                                cout << "Have more product stock in Store :D" << endl;
+                            }
+                            getch();
+                            cout << "Press Any Key to continue :)" << endl;
+                            getch();
+                        }
+                        else if (adminchoice == 7)
+                        //..add discount on product..//
+                        {
+                            string name;
+                            cout << "Enter the product on which u want to apply discount :):" << endl;
+                            cin >> name;
+                            bool found = false;
+
+                            for (int i = 0; i < currentproduct; i++)
+                            {
+                                if (namesarray[i] == name)
+                                {
+                                    cout << "Enter how much discount u want to apply: 1 for 1% :" << endl;
+                                    // if u press 1 then 1 percant discount will be apply
+
+                                    cin >> discountarray[i];
+                                    cout << "Discount apply successfully :D " << endl;
+                                    found = true;
+                                }
+                            }
+                            getch();
+                            if (!found)
+                            {
+                                cout << "Product not found try again :-(" << endl;
+                            }
+                            getch();
+                            cout << "Press Any Key to contineu :-)" << endl;
+                            getch();
+                        }
+
+                        else if (adminchoice == 8)
+                        //..total value of store's product..//
+                        {
+                            cout << " Check Total value of store's product:" << endl;
+                            int total = 0;
+                            for (int i = 0; i < currentproduct; i++)
+                            {
+                                int totalprice = pricearray[i] * stockarray[i];
+                                cout << namesarray[i] << ":Rps" << totalprice << endl;
+                                total += totalprice;
+                            }
+                            cout << "total value of store's product is :" << "Rps" << total << endl;
+                            getch();
+                            cout << "press any key to contineu" << endl;
+                            getch();
+                        }
+
+                        else if (adminchoice == 9)
                         {
 
                             cout << "Logout" << endl;
@@ -162,7 +256,7 @@ main()
                     }
                     break;
                 }
-                else if (username != "admin" && password != "1234")
+                else if (username != "taha" && password != "7271")
                 {
                     cout << "Login Failed :-( plz Try Again" << endl;
                 }
@@ -180,7 +274,10 @@ main()
                 cout << "Welcome to customer menu" << endl;
                 cout << "1.View Our Products :-)" << endl;
                 cout << "2.Buy Our Products:-)" << endl;
-                cout << "3.Logout :)" << endl;
+                cout << "3.Search Product  :)" << endl;
+                cout << "4.Check the product is in store :)" << endl;
+                cout << "5.View discount offers" << endl;
+                cout << "6.Logout :)" << endl;
                 cout << "Please Select Option:";
 
                 int userchoice;
@@ -192,7 +289,7 @@ main()
                     cout << "No\tProductname\tproductprice\tproductstock" << endl;
                     for (int i = 0; i < currentproduct; i++)
                     {
-                        cout << i << "\t" << namesarray[i] << "\t\t" << pricearray[i] << "\t\t" << stockarray[i] << endl;
+                        cout << i + 1 << "\t" << namesarray[i] << "\t\t" << pricearray[i] << "\t\t" << stockarray[i] << endl;
                     }
                     cout << "Press Any Key To Continue :)";
                     getch();
@@ -243,8 +340,91 @@ main()
                         cout << "Product Not Found :";
                     }
                     getch();
+                    cout << "press any key to continue " << endl;
+                    getch();
                 }
                 else if (userchoice == 3)
+                //..Search Product..//
+                {
+                    string name;
+                    cout << "Enter the product name u want to search :):" << endl;
+                    cin >> name;
+                    bool found = false;
+                    for (int i = 0; i < currentproduct; i++)
+                    {
+                        if (namesarray[i] == name)
+                        {
+                            cout << "Product Found :) " << endl;
+                            cout << "Product found :)" << endl;
+                            cout << "Name:" << namesarray[i] << "\t" << "Price:" << pricearray[i] << "\t" << "Stock:" << stockarray[i] << "\t" << "Discount:" << discountarray[i] << "%" << endl;
+                            found = true;
+                        }
+                    }
+                    getch();
+                    if (!found)
+                    {
+                        cout << "Product u search not found in our store :)" << endl;
+                    }
+                    getch();
+                    cout << "Press any key to continue " << endl;
+                    getch();
+                }
+                else if (userchoice == 4)
+                // check if a product is in store
+                {
+                    string name;
+                    cout << "Enter the product name u want to see in stock:" << endl;
+                    cin >> name;
+                    bool found = false;
+                    for (int i = 0; i < currentproduct; i++)
+                    {
+                        if (namesarray[i] == name)
+                        {
+                            if (stockarray[i] > 0)
+                            {
+                                cout << name << "is in stock \t" << stockarray[i] << endl;
+                            }
+                            else
+                            {
+                                cout << name << "is not in store's stock \t" << stockarray[i] << endl;
+                            }
+                            found = true;
+                        }
+                    }
+                    getch();
+                    if (!found)
+                    {
+                        cout << "Product not found try again :-)" << endl;
+                    }
+                    getch();
+                    cout << "Press Any key to continue" << endl;
+                    getch();
+                }
+                else if (userchoice == 5)
+                //.. see if discount available on products
+                {
+                    cout << "View Discount offer :D" << endl;
+                    bool found = false;
+                    for (int i = 0; i < currentproduct; i++)
+                    {
+                        if (discountarray[i] > 0)
+                        {
+                            float discountprice = pricearray[i] - (pricearray[i] * stockarray[i] / 100);
+                            cout << namesarray[i] << "\t price:Rps" << pricearray[i] << "\tDiscount:" << discountarray[i] << "%" << "new price after applying discount:" << discountprice << endl;
+                            found = true;
+                        }
+                    }
+                    getch();
+                    if (!found)
+                    {
+                        cout << "No discount available right now sorry :(" << endl;
+                    }
+                    getch();
+                    cout << "press any key to continue" << endl;
+                    getch();
+                }
+
+                else if (userchoice == 6)
                 {
 
                     cout << "Logout" << endl;
