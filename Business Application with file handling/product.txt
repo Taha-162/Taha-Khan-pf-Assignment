@@ -1,0 +1,7 @@
+medoralipstick 200 16 0 
+pondsfacewash 300 8 0 
+coverfoundation 650 9 0 
+xqmbase 300 10 5 
+hudabeautyprimer 250 5 10 
+  0 0 0 
+  0 0 0 

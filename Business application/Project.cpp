@@ -409,7 +409,7 @@ main()
                     {
                         if (discountarray[i] > 0)
                         {
-                            float discountprice = pricearray[i] - (pricearray[i] * stockarray[i] / 100);
+                            float discountprice = pricearray[i] - (pricearray[i] * discountarray[i] / 100);
                             cout << namesarray[i] << "\t price:Rps" << pricearray[i] << "\tDiscount:" << discountarray[i] << "%" << "new price after applying discount:" << discountprice << endl;
                             found = true;
                         }

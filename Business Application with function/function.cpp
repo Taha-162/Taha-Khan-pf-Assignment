@@ -2,16 +2,6 @@
 #include <conio.h>
 using namespace std;
 
-//..... Data Structure.....//
-const int totalproduct = 100;
-int currentproduct = 5;
-string namesarray[totalproduct] = {"medoralipstick", "pondsfacewash", "coverfoundation", "xqmbase", "hudabeautyprimer"};
-int pricearray[totalproduct] = {200, 300, 650, 300, 250};
-int stockarray[totalproduct] = {19, 12, 9, 10, 5};
-int discountarray[totalproduct] = {0, 0, 0, 5, 10};
-
-//.... Data Structure is end.....//
-
 //....Prototype.....//
 void introheader();
 void mainheader();
@@ -31,6 +21,13 @@ void discoffers(string namesarray[], int pricearray[], int stockarray[], int dis
 
 int main()
 {
+    //..... variables..//
+    const int totalproduct = 100;
+    int currentproduct = 5;
+    string namesarray[totalproduct] = {"medoralipstick", "pondsfacewash", "coverfoundation", "xqmbase", "hudabeautyprimer"};
+    int pricearray[totalproduct] = {200, 300, 650, 300, 250};
+    int stockarray[totalproduct] = {19, 12, 9, 10, 5};
+    int discountarray[totalproduct] = {0, 0, 0, 5, 10};
     //... Main Header of CSMS...//
     while (true)
     {
@@ -518,7 +515,7 @@ void discoffers(string namesarray[], int pricearray[], int stockarray[], int dis
     {
         if (discountarray[i] > 0)
         {
-            float discountprice = pricearray[i] - (pricearray[i] * stockarray[i] / 100);
+            float discountprice = pricearray[i] - (pricearray[i] * discountarray[i] / 100);
             cout << namesarray[i] << "\t price:Rps" << pricearray[i] << "\tDiscount:" << discountarray[i] << "%" << " new price after applying discount:" << discountprice << endl;
             found = true;
         }

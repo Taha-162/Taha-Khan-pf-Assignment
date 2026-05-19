@@ -1,16 +1,9 @@
 #include <iostream>
-#include <conio.h>
-#include <string>
 #include <fstream>
+#include <conio.h>
 using namespace std;
 
-const int totalproduct = 100;
-int currentproduct = 0;
-string namesarray[totalproduct];
-int pricearray[totalproduct];
-int stockarray[totalproduct];
-int discountarray[totalproduct];
-
+//....Prototype.....//
 void introheader();
 void mainheader();
 void viewproducts(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct);
@@ -24,79 +17,23 @@ void applydiscount(string namesarray[], int pricearray[], int stockarray[], int 
 void totalitemvalue(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct);
 void checkproduct(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct);
 void discoffers(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct);
-void savetofile(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct);
-void loadfromfile(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int &currentproduct);
 
-void savetofile(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct)
-{
-    ofstream file;
-    file.open("products.txt");
-    for (int i = 0; i < currentproduct; i++)
-    {
-        if (namesarray[i] != " ")
-        {
-            file << namesarray[i] << "," << pricearray[i] << "," << stockarray[i] << "," << discountarray[i] << endl;
-        }
-    }
-    file.close();
-}
-
-void loadfromfile(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int &currentproduct)
-{
-    ifstream file;
-    file.open("products.txt");
-    if (!file)
-    {
-        ofstream newfile;
-        newfile.open("products.txt");
-        newfile << "medoralipstick,200,19,0" << endl;
-        newfile << "pondsfacewash,300,12,0" << endl;
-        newfile << "coverfoundation,650,9,0" << endl;
-        newfile << "xqmbase,300,10,5" << endl;
-        newfile << "hudabeautyprimer,250,5,10" << endl;
-        newfile.close();
-        file.open("products.txt");
-    }
-    currentproduct = 0;
-    string line;
-    while (getline(file, line))
-    {
-        string name = "";
-        string price = "";
-        string stock = "";
-        string discount = "";
-        int commacount = 0;
-        for (int i = 0; i < line.length(); i++)
-        {
-            if (line[i] == ',')
-            {
-                commacount++;
-            }
-            else
-            {
-                if (commacount == 0)
-                    name += line[i];
-                else if (commacount == 1)
-                    price += line[i];
-                else if (commacount == 2)
-                    stock += line[i];
-                else if (commacount == 3)
-                    discount += line[i];
-            }
-        }
-        namesarray[currentproduct] = name;
-        pricearray[currentproduct] = stoi(price);
-        stockarray[currentproduct] = stoi(stock);
-        discountarray[currentproduct] = stoi(discount);
-        currentproduct++;
-    }
-    file.close();
-}
+//...file handling :)...//
+void save_productdata(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct);
+void load_productdata(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int &currentproduct);
 
 int main()
 {
-    loadfromfile(namesarray, pricearray, stockarray, discountarray, currentproduct);
 
+    //.....variables.....//
+    const int totalproduct = 100;
+    int currentproduct = 5;
+    string namesarray[totalproduct] = {"medoralipstick", "pondsfacewash", "coverfoundation", "xqmbase", "hudabeautyprimer"};
+    int pricearray[totalproduct] = {200, 300, 650, 300, 250};
+    int stockarray[totalproduct] = {19, 12, 9, 10, 5};
+    int discountarray[totalproduct] = {0, 0, 0, 5, 10};
+    load_productdata(namesarray, pricearray, stockarray, discountarray, currentproduct);
+    //...  Header of cosmetic management system...//
     while (true)
     {
         system("cls");
@@ -108,11 +45,13 @@ int main()
         cin >> useroption;
         cout << "You choose a Option" << endl;
 
+        //......Admin Menu.....//
         if (useroption == "1")
         {
             cout << "Welcome to Admin Menu" << endl;
             for (int i = 0; i < 3; i++)
             {
+
                 system("cls");
                 cout << "Welcome to Admin Menu " << endl;
                 string username;
@@ -136,75 +75,95 @@ int main()
                         cout << "5.Search Product" << endl;
                         cout << "6.view low stock item" << endl;
                         cout << "7.Apply discount on product" << endl;
-                        cout << "8.view total inventory value" << endl;
+                        cout << "8.view total store's product value" << endl;
                         cout << "9.Logout" << endl;
                         cout << "Enter The Choice:";
                         string adminchoice;
                         cin >> adminchoice;
 
+                        //.. View Produt..//
                         if (adminchoice == "1")
                         {
+
                             viewproducts(namesarray, pricearray, stockarray, discountarray, currentproduct);
                             getch();
+
                             cout << "Press Any Key To Continue :)";
                             getch();
                         }
+
                         else if (adminchoice == "2")
                         {
+                            //.... Add Product...//
                             addproduct(namesarray, pricearray, stockarray, discountarray, currentproduct);
-                            savetofile(namesarray, pricearray, stockarray, discountarray, currentproduct);
                             getch();
                             cout << "Press Any Key To Continue :)";
                             getch();
                         }
+
+                        //.. update product..//
                         else if (adminchoice == "3")
                         {
                             updateproduct(namesarray, pricearray, stockarray, discountarray, currentproduct);
-                            savetofile(namesarray, pricearray, stockarray, discountarray, currentproduct);
+
                             getch();
+
                             cout << "Press Any Key To contineu:";
                             getch();
                         }
+
+                        //.. Delete Product..//
                         else if (adminchoice == "4")
                         {
                             deleteproduct(namesarray, pricearray, stockarray, discountarray, currentproduct);
-                            savetofile(namesarray, pricearray, stockarray, discountarray, currentproduct);
                             getch();
+
                             cout << "Press Any Key To Continue:";
                             getch();
                         }
                         else if (adminchoice == "5")
+                        // seach product..//
                         {
                             searchproduct(namesarray, pricearray, stockarray, discountarray, currentproduct);
                             getch();
+
                             cout << "Press Any Key To Continue:";
                             getch();
                         }
                         else if (adminchoice == "6")
+                        //..view low stock item in store..//
                         {
                             lowstockitem(namesarray, pricearray, stockarray, discountarray, currentproduct);
                             getch();
+
                             cout << "Press Any Key To Continue:";
                             getch();
                         }
                         else if (adminchoice == "7")
+                        //..apply discount on product..//
                         {
                             applydiscount(namesarray, pricearray, stockarray, discountarray, currentproduct);
-                            savetofile(namesarray, pricearray, stockarray, discountarray, currentproduct);
                             getch();
+
                             cout << "Press Any Key To Continue:";
                             getch();
                         }
                         else if (adminchoice == "8")
+                        //... view total product store's product price in store..//
                         {
                             totalitemvalue(namesarray, pricearray, stockarray, discountarray, currentproduct);
                             getch();
+
                             cout << "Press Any Key To Continue:";
                             getch();
                         }
+
+                        //..logout..//
                         else if (adminchoice == "9")
                         {
+
                             cout << "Logout" << endl;
+
                             break;
                         }
                         else
@@ -218,14 +177,19 @@ int main()
                 {
                     cout << "Login Failed :-( plz Try Again" << endl;
                 }
+
                 getch();
             }
         }
+
+        //-----Customer Menu-------
         else if (useroption == "2")
         {
+
             while (true)
             {
                 system("cls");
+                // User Code
                 cout << "Welcome to customer menu" << endl;
                 cout << "1.View Our Products :-)" << endl;
                 cout << "2.Buy Our Products:-)" << endl;
@@ -239,6 +203,7 @@ int main()
                 cin >> userchoice;
                 cout << "You Choose Option" << endl;
 
+                //....viewproduct..//
                 if (userchoice == "1")
                 {
                     viewproducts(namesarray, pricearray, stockarray, discountarray, currentproduct);
@@ -246,36 +211,46 @@ int main()
                     cout << "Press Any Key To Continue :)";
                     getch();
                 }
+
+                //.. buy code..//
                 else if (userchoice == "2")
                 {
                     buyproduct(namesarray, pricearray, stockarray, discountarray, currentproduct);
-                    savetofile(namesarray, pricearray, stockarray, discountarray, currentproduct);
                     getch();
                 }
                 else if (userchoice == "3")
+                //...search product..//
                 {
                     searchproduct(namesarray, pricearray, stockarray, discountarray, currentproduct);
                     getch();
+
                     cout << "Press Any Key To Continue:";
                     getch();
                 }
                 else if (userchoice == "4")
+                // check the product in stock of store..//
                 {
                     checkproduct(namesarray, pricearray, stockarray, discountarray, currentproduct);
                     getch();
+
                     cout << "Press Any Key To Continue:";
                     getch();
                 }
                 else if (userchoice == "5")
+                //..View Discount offer..//
                 {
                     discoffers(namesarray, pricearray, stockarray, discountarray, currentproduct);
                     getch();
+
                     cout << "Press Any Key To Continue:";
                     getch();
                 }
+
                 else if (userchoice == "6")
                 {
+
                     cout << "Logout" << endl;
+
                     break;
                 }
                 else
@@ -283,8 +258,12 @@ int main()
                     cout << "Invalid Choice:";
                 }
             }
+
             getch();
         }
+
+        //..Logout..//
+
         else if (useroption == "3")
         {
             cout << "---Exiting---";
@@ -295,10 +274,12 @@ int main()
             cout << "You Enter Invaid choice";
         }
         getch();
+
         cout << "Thanx For Using Our System :-)";
     }
 }
 
+//... functions ...//
 void introheader()
 {
     cout << "------------------------------------------------------------------ " << endl;
@@ -326,44 +307,48 @@ void viewproducts(string namesarray[], int pricearray[], int stockarray[], int d
 }
 void addproduct(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int &currentproduct)
 {
-    cout << "Enter Product Name You want to add:" << endl;
+    cout << "Enter Product Name You want to add (no spaces between names):" << endl;
     cin >> namesarray[currentproduct];
-    cout << "Enter The Price of The Product You Added:" << endl;
+    cout << "Enter The Price of The Product you sdded:" << endl;
     cin >> pricearray[currentproduct];
     cout << "How many stocks U have of the Product You added:" << endl;
     cin >> stockarray[currentproduct];
-    discountarray[currentproduct] = 0;
+    discountarray[currentproduct] = 0; // no discount currently on new product :(
     currentproduct++;
+    save_productdata(namesarray, pricearray, stockarray, discountarray, currentproduct);
     cout << "Product Added successfully!\n";
 }
 void updateproduct(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct)
 {
-    string find;
-    cout << "Enter THE Prodcut Name You want to Update:";
-    cin >> find;
+    string name;
+    cout << "Enter The Prodcut Name You want to Update (no spaces between names):";
+
+    cin >> name;
     bool found = false;
     for (int i = 0; i < currentproduct; i++)
     {
-        if (namesarray[i] == find)
+        if (namesarray[i] == name)
         {
             cout << "Product found:" << endl;
+            ;
             cout << "Update The Price Of Product:";
             cin >> pricearray[i];
             cout << "Update The Stock of Product:";
             cin >> stockarray[i];
+            save_productdata(namesarray, pricearray, stockarray, discountarray, currentproduct);
             found = true;
             break;
         }
     }
     if (!found)
     {
-        cout << "This Product is not on list";
+        cout << "This Product is not in store";
     }
 }
 void deleteproduct(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct)
 {
     string name;
-    cout << "Enter The Product Name U want To Delete:";
+    cout << "Enter The Product Name U want To Delete (no spaces between names): ";
     cin >> name;
     bool found = false;
     int foundindex = -1;
@@ -381,7 +366,8 @@ void deleteproduct(string namesarray[], int pricearray[], int stockarray[], int 
         pricearray[foundindex] = 0;
         stockarray[foundindex] = 0;
         discountarray[foundindex] = 0;
-        cout << "Record Of Product" << name << "is Deleted" << endl;
+        save_productdata(namesarray, pricearray, stockarray, discountarray, currentproduct);
+        cout << "Record Of Product\t" << name << "\tis Deleted" << endl;
     }
     else
     {
@@ -394,7 +380,7 @@ void buyproduct(string namesarray[], int pricearray[], int stockarray[], int dis
     int quantity;
     int totalbill = 0;
     bool found = false;
-    cout << "Enter The Product Name U want to Buy:";
+    cout << "Enter The Product Name U want to Buy (no spaces between names):";
     cin >> productname;
     cout << "Enter The quantity of Product u want to Buy:";
     cin >> quantity;
@@ -406,11 +392,15 @@ void buyproduct(string namesarray[], int pricearray[], int stockarray[], int dis
             if (stockarray[i] >= quantity)
             {
                 stockarray[i] -= quantity;
+                save_productdata(namesarray, pricearray, stockarray, discountarray, currentproduct);
                 totalbill = totalbill + pricearray[i] * quantity;
+
+                // ok I will give u discount if u buy product worth 1500 or more:P
                 if (totalbill >= 1500)
                 {
                     float discount = totalbill * 0.05;
                     totalbill = totalbill - discount;
+
                     cout << "5 discound Apply";
                 }
                 cout << "Purchase Successful" << endl;
@@ -433,14 +423,14 @@ void buyproduct(string namesarray[], int pricearray[], int stockarray[], int dis
 void searchproduct(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct)
 {
     string name;
-    cout << "Enter the Product name u want to search :):" << endl;
+    cout << "Enter the Product name u want to search :) (no spaces between names):" << endl;
     cin >> name;
     bool found = false;
     for (int i = 0; i < currentproduct; i++)
     {
         if (namesarray[i] == name)
         {
-            cout << "Product found :)" << endl;
+            cout << "Productu search is  found :)" << endl;
             cout << "Name:" << namesarray[i] << "\t" << "Price:" << pricearray[i] << "\t" << "Stock:" << stockarray[i] << "\t" << "Discount:" << discountarray[i] << "%" << endl;
         }
     }
@@ -465,19 +455,24 @@ void lowstockitem(string namesarray[], int pricearray[], int stockarray[], int d
 void applydiscount(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct)
 {
     string name;
-    cout << "Enter the product on which u want to apply discount :):" << endl;
+    cout << "Enter the product on which u want to apply discount :) (no spaces between names):" << endl;
     cin >> name;
     bool found = false;
+
     for (int i = 0; i < currentproduct; i++)
     {
         if (namesarray[i] == name)
         {
             cout << "Enter how much discount u want to apply: 1 for 1% :" << endl;
+            // if u press 1 then 1 percant discount will be apply
+
             cin >> discountarray[i];
+            save_productdata(namesarray, pricearray, stockarray, discountarray, currentproduct);
             cout << "Discount apply successfully :D " << endl;
             found = true;
         }
     }
+
     if (!found)
     {
         cout << "Product not found try again :-(" << endl;
@@ -498,7 +493,7 @@ void totalitemvalue(string namesarray[], int pricearray[], int stockarray[], int
 void checkproduct(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct)
 {
     string name;
-    cout << "Enter the product name u want to see in stock:" << endl;
+    cout << "Enter the product name u want to see in stock (no spaces between names): " << endl;
     cin >> name;
     bool found = false;
     for (int i = 0; i < currentproduct; i++)
@@ -516,6 +511,7 @@ void checkproduct(string namesarray[], int pricearray[], int stockarray[], int d
             found = true;
         }
     }
+
     if (!found)
     {
         cout << "Product not found try again :-)" << endl;
@@ -529,13 +525,39 @@ void discoffers(string namesarray[], int pricearray[], int stockarray[], int dis
     {
         if (discountarray[i] > 0)
         {
-            float discountprice = pricearray[i] - (pricearray[i] * stockarray[i] / 100);
-            cout << namesarray[i] << "\t price:Rps" << pricearray[i] << "\tDiscount:" << discountarray[i] << "%" << " new price after applying discount:" << discountprice << endl;
+            float discountprice = pricearray[i] - (pricearray[i] * discountarray[i] / 100);
+            cout << namesarray[i] << "\t price:Rps" << pricearray[i] << "\tDiscount:" << discountarray[i] << "%" << "\t new price after applying discount:" << discountprice << endl;
             found = true;
         }
     }
+
     if (!found)
     {
         cout << "No discount available right now sorry :(" << endl;
     }
+}
+//..savedata_file..//
+void save_productdata(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int currentproduct)
+{
+    fstream myfile("product.txt", ios::out);
+    for (int i = 0; i < currentproduct; i++)
+    {
+        myfile << namesarray[i] << " " << pricearray[i] << " " << stockarray[i] << " " << discountarray[i] << " " << "\n";
+    }
+    myfile.close();
+}
+//...loaddata_file..//
+void load_productdata(string namesarray[], int pricearray[], int stockarray[], int discountarray[], int &currentproduct)
+{
+    fstream myfile("product.txt", ios::in);
+    if (!myfile)
+    {
+        return;
+    }
+    currentproduct = 0;
+    while (myfile >> namesarray[currentproduct] >> pricearray[currentproduct] >> stockarray[currentproduct] >> discountarray[currentproduct])
+    {
+        currentproduct++;
+    }
+    myfile.close();
 }
